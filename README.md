@@ -1,2 +1,2 @@
 # book-api
-Test project to learn NodeJS
+Test project to study NodeJS
