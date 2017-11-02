@@ -9,7 +9,24 @@ const db = mongoose.connect('mongodb://localhost/bookAPI', { useMongoClient: tru
 
 bookRouter.route('/books')
   .get((req, res) => {
-    Book.find((err, books) => {
+    let query = {};
+    if (req.query.title) {
+      query.title = req.query.title;
+    }
+
+    if (req.query.author) {
+      query.author = req.query.author;
+    }
+
+    if (req.query.genre) {
+      query.genre = req.query.genre;
+    }
+
+    if (req.query.read) {
+      query.read = req.query.read;
+    }
+
+    Book.find(query, (err, books) => {
       if (err) {
         res.status(500).send(err);
       } else {
