@@ -5,7 +5,12 @@ const Book = require('./models/bookModel');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const db = mongoose.connect('mongodb://localhost/bookAPI', { useMongoClient: true });
+let db;
+if (process.env.ENV = 'Test') {
+  db = mongoose.connect('mongodb://localhost/bookAPI_test', { useMongoClient: true });
+} else {
+  mongoose.connect('mongodb://localhost/bookAPI', { useMongoClient: true });
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,3 +25,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Running on port: ${port}`);
 });
+
+module.exports = app;

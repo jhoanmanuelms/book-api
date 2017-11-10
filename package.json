@@ -29,8 +29,10 @@
     "mongoose": "^4.12.5"
   },
   "devDependencies": {
+    "gulp-env": "^0.4.0",
     "gulp-mocha": "^4.3.1",
     "should": "^13.1.3",
-    "sinon": "^4.1.2"
+    "sinon": "^4.1.2",
+    "supertest": "^3.0.0"
   }
 }
