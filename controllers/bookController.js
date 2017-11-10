@@ -1,9 +1,14 @@
 const bookController = (Book) => {
   const post = (req, res) => {
-    console.log('here1');
     const book = new Book(req.body);
-    book.save();
-    res.status(201).send(book);
+    if (!req.body.title) {
+      res.status(400);
+      res.send('Title is required');
+    } else {
+      book.save();
+      res.status(201);
+      res.send(book);
+    }
   };
 
   const get = (req, res) => {
