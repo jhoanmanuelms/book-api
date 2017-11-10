@@ -1,0 +1,52 @@
+const express = require('express');
+
+const routes = (Book) => {
+  const bookRouter = express.Router();
+  bookRouter.route('/')
+    .post((req, res) => {
+      const book = new Book(req.body);
+      book.save();
+      res.status(201).send(book);
+    })
+    .get((req, res) => {
+      let query = {};
+      if (req.query.title) {
+        query.title = req.query.title;
+      }
+  
+      if (req.query.author) {
+        query.author = req.query.author;
+      }
+  
+      if (req.query.genre) {
+        query.genre = req.query.genre;
+      }
+  
+      if (req.query.read) {
+        query.read = req.query.read;
+      }
+  
+      Book.find(query, (err, books) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(books);
+        }
+      });
+    });
+  
+  bookRouter.route('/:bookId')
+    .get((req, res) => {
+      Book.findById(req.params.bookId, (err, book) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.json(book);
+        }
+      });
+    });
+
+  return bookRouter;
+};
+
+module.exports = routes;
