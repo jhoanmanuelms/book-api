@@ -6,7 +6,8 @@ const Book = require('./models/bookModel');
 const app = express();
 const port = process.env.PORT || 3000;
 let db;
-if (process.env.ENV = 'Test') {
+if (process.env.ENV === 'Test') {
+  console.log('Starting in test mode');
   db = mongoose.connect('mongodb://localhost/bookAPI_test', { useMongoClient: true });
 } else {
   mongoose.connect('mongodb://localhost/bookAPI', { useMongoClient: true });

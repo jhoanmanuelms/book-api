@@ -23,7 +23,13 @@ const routes = (Book) => {
 
   bookRouter.route('/:bookId')
     .get((req, res) => {
-      res.json(req.book);
+      const documentedBook = req.book.toJSON();
+      documentedBook.links = {};
+      documentedBook.links.allBooks = `http://${req.headers.host}/api/books`;
+      documentedBook.links.filteredByThisGenre =
+        encodeURI(`http://${req.headers.host}/api/books?genre=${documentedBook.genre}`);
+
+      res.json(documentedBook);
     })
     .put((req, res) => {
       Book.findById(req.params.bookId, (err, book) => {

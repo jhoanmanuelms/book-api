@@ -33,7 +33,15 @@ const bookController = (Book) => {
       if (err) {
         res.status(500).send(err);
       } else {
-        res.json(books);
+        const documentedBooks = [];
+        books.forEach((element, index, array) => {
+          const documentedBook = element.toJSON();
+          documentedBook.links = {}; 
+          documentedBook.links.self = `http://${req.headers.host}/api/books/${documentedBook._id}`;
+          documentedBooks.push(documentedBook);
+        });
+
+        res.json(documentedBooks);
       }
     });
   };
