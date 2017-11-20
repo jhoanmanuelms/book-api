@@ -1,3 +1,4 @@
+const cors = require('cors')
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,6 +14,7 @@ if (process.env.ENV === 'Test') {
   mongoose.connect('mongodb://localhost/bookAPI', { useMongoClient: true });
 }
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 const bookRouter = require('./routes/bookRoutes')(Book);
